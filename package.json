@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "fix": "npm audit fix",
+    "prepare": "husky install",
+    "lint-staged": "npm audit fix"
   },
   "repository": {
     "type": "git",
@@ -14,5 +16,17 @@
     "name": "João",
     "email": "joaovsilva70@outlook.com"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "private": true,
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.1.2",
+    "@commitlint/config-conventional": "^17.1.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3"
+  }
 }
