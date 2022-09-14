@@ -23,7 +23,6 @@
     ]
   },
   "lint-staged": {
-    "*.js": "eslint --fix ",
     "./src/**/*.{js}": "prettier --cache --write"
   },
   "devDependencies": {
