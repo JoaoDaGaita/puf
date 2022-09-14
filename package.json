@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "fix": "npm audit fix",
-    "prepare": "husky install",
-    "lint-staged": "npm audit fix"
+    "lint": "eslint . --fix --max-warnings=0",
+    "format": "prettier . --write"
   },
   "repository": {
     "type": "git",
@@ -23,10 +22,19 @@
       "@commitlint/config-conventional"
     ]
   },
+  "lint-staged": {
+    "*.js": "eslint --fix ",
+    "./src/**/*.{js}": "prettier --cache --write"
+  },
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
+    "eslint": "^8.23.1",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-json": "^3.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.1",
-    "lint-staged": "^13.0.3"
+    "lint-staged": "^13.0.3",
+    "prettier": "2.7.1"
   }
 }
