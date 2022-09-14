@@ -1,3 +1,3 @@
-const x = a => x + 10
+const x = a => x + 10241
 
 x(21412)
