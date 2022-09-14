@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint . --fix --max-warnings=0",
-    "format": "prettier . --write"
+    "format": "prettier . --write",
+    "dev": "nodemon --exec babel-node src/index.js",
+    "build": "babel src --extensions \".js\" --ignore \".spec.js,*.test.js\" --out-dir dist --copy-files",
+    "prebuild": "rimraf ./dist"
   },
   "repository": {
     "type": "git",
@@ -26,14 +29,21 @@
     "./src/**/*.{js}": "prettier --cache --write"
   },
   "devDependencies": {
+    "@babel/cli": "^7.18.10",
+    "@babel/core": "^7.19.1",
+    "@babel/node": "^7.19.1",
+    "@babel/plugin-proposal-optional-chaining": "^7.18.9",
+    "@babel/preset-env": "^7.19.1",
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
+    "babel-plugin-module-resolver": "^4.1.0",
     "eslint": "^8.23.1",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-json": "^3.1.0",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
-    "prettier": "2.7.1"
+    "prettier": "2.7.1",
+    "nodemon": "^2.0.19"
   }
 }
