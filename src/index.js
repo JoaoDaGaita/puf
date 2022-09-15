@@ -1,3 +1,10 @@
-const x = a => x + 10241
+import Koa from 'koa'
 
-x(21412)
+import { router } from './routes'
+
+const app = new Koa()
+
+app.use(router.routes())
+app.use(router.allowedMethods())
+
+app.listen(3000)
