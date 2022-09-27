@@ -8,7 +8,7 @@ generator client {
 }
 
 model User {
-    id          Int @id @default(autoincrement())
+    id          String @id @default(cuid())
     name        String?
     email       String @unique
     password    String
@@ -16,5 +16,5 @@ model User {
     updatedAt   DateTime @default(now())
     deleteAt    DateTime?
 
-    @@map("user")
+    @@map("users")
 }
