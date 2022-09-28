@@ -1,5 +1,7 @@
-import { prisma } from '~/data'
+import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+
+import { prisma } from '~/data'
 
 export const login = async ctx => {
   try {
@@ -36,8 +38,20 @@ export const list = async ctx => {
 
 export const create = async ctx => {
   try {
-    const user = await prisma.User.create({
-      data: ctx.request.body,
+    const saltRounds = 10
+
+    const hashedPassword = await bcrypt.hash(
+      ctx.request.body.password,
+      saltRounds
+    )
+    ctx.body = hashedPassword
+
+    const { password, ...user } = await prisma.User.create({
+      data: {
+        name: ctx.request.body.name,
+        email: ctx.request.body.email,
+        password: hashedPassword,
+      },
     })
     ctx.body = user
   } catch (error) {
