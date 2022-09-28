@@ -1,4 +1,28 @@
 import { prisma } from '~/data'
+import jwt from 'jsonwebtoken'
+
+export const login = async ctx => {
+  try {
+    const { email, password } = ctx.request.body
+
+    const user = await prisma.User.findUnique({
+      where: { email },
+    })
+
+    if (!user || password !== user.password) {
+      ctx.status = 404
+      ctx.body = 'Usuário não encontrado!'
+      return
+    }
+
+    const token = jwt.sign({ sub: user.id }, process.env.JWT_SECRET)
+
+    ctx.body = { user, token }
+  } catch (error) {
+    ctx.status = 500
+    ctx.body = 'Houve um errol'
+  }
+}
 
 export const list = async ctx => {
   try {
@@ -41,10 +65,13 @@ export const update = async ctx => {
 export const remove = async ctx => {
   try {
     await prisma.User.delete({
-      where: { id: ctx.params.id },
+      where: {
+        id: ctx.params.id,
+      },
     })
     ctx.body = { id: ctx.params.id }
   } catch (error) {
+    console.log(error)
     ctx.status = 500
     ctx.body = 'Houve um erro!!'
   }
