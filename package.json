@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint:js": "eslint . --ext .js",
+    "lint-staged": "eslint . --ext .js",
     "lint:js:fix": "npm run lint:js -- --fix",
     "format": "prettier . --write",
     "dev": "nodemon --exec babel-node -- -r dotenv-safe/config src/index.js",
