@@ -5,7 +5,7 @@ import {
   BadCredentialsError,
 } from './services'
 
-describe('User module', () => {
+describe('User service', () => {
   it('should return credentials by basic authentication token', () => {
     //prepare
     const email = 'joao@zam.com'

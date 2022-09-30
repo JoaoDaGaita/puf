@@ -1,12 +1,3 @@
-import Koa from 'koa'
-import bodyparser from 'koa-bodyparser'
-
-import { router } from './routes'
-
-const app = new Koa()
-
-app.use(bodyparser())
-app.use(router.routes())
-app.use(router.allowedMethods())
+import { app } from './server-setup'
 
 app.listen(process.env.SERVER_PORT)
