@@ -2,16 +2,18 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 import { prisma } from '~/data'
+import {
+  decodeBasicToken,
+  TokenTypeError,
+  EncodedError,
+  BadCredentialsError,
+} from './services'
 
 export const login = async ctx => {
-  const [type, credentials] = ctx.request.headers.authorization.split(' ')
-  if (type !== 'Basic') {
-    ctx.status = 400
-    return
-  }
-  const decoded = Buffer.from(credentials, 'base64').toString()
-  const [email, password] = decoded.split(':')
   try {
+    const [email, password] = decodeBasicToken(
+      ctx.request.headers.authorization
+    )
     const user = await prisma.User.findUnique({
       where: { email },
     })
@@ -62,6 +64,15 @@ export const create = async ctx => {
     })
     ctx.body = user
   } catch (error) {
+    if (error instanceof TokenTypeError) {
+      ctx.status = 400
+    }
+    if (error instanceof EncodedError) {
+      ctx.status = 400
+    }
+    if (error instanceof BadCredentialsError) {
+      ctx.status = 400
+    }
     ctx.status = 500
     ctx.body = 'Houve um erro!!'
   }
