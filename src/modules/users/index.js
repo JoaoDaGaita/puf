@@ -55,7 +55,7 @@ export const create = async ctx => {
     )
     ctx.body = hashedPassword
 
-    const { password, ...user } = await prisma.User.create({
+    const { user } = await prisma.User.create({
       data: {
         name: ctx.request.body.name,
         email: ctx.request.body.email,
@@ -64,6 +64,11 @@ export const create = async ctx => {
     })
     ctx.body = user
   } catch (error) {
+    if (error.code !== null) {
+      ctx.status = 400
+      ctx.body = `Bad request: ${error.meta.target} already exists`
+      return
+    }
     if (error instanceof TokenTypeError) {
       ctx.status = 400
     }
