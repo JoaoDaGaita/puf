@@ -17,7 +17,7 @@ export const login = async ctx => {
     const user = await prisma.User.findUnique({
       where: { email },
     })
-
+    wdawdd
     if (!user) {
       ctx.status = 404
       ctx.body = 'Usuário não encontrado!'
