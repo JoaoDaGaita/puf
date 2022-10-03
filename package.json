@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "db:migrate": "npx prisma migrate dev --preview-feature",
     "lint-staged": "eslint . --ext .js",
     "lint:js:fix": "npm run lint:js -- --fix",
     "format": "prettier . --write",
