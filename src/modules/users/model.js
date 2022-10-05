@@ -49,3 +49,9 @@ prisma.$use(async (params, next) => {
 
   return result
 })
+
+export const findUnique = prisma.User.findUnique
+export const findMany = prisma.User.findMany
+export const create = prisma.User.create
+export const update = prisma.User.update
+export const remove = prisma.User.delete

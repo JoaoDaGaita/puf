@@ -34,7 +34,7 @@ describe('User routes', () => {
   })
   it('should return logged user with correct credentials', async () => {
     // prepare
-    const email = 'joao@zam.com'
+    const email = 'joao222@zam.com'
     const password = '123123'
 
     const saltRounds = 10
@@ -56,5 +56,7 @@ describe('User routes', () => {
     //expect(result.body.user.password).toBeFalsy()
 
     expect(decodedToken.sub).toBe(user.id)
+
+    console.log(decodedToken.body)
   })
 })

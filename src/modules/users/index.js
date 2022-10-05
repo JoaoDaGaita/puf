@@ -1,32 +1,23 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-
-import { prisma } from '~/data'
 import {
   decodeBasicToken,
   TokenTypeError,
   EncodedError,
   BadCredentialsError,
 } from './services'
+import * as model from './model'
 
 export const login = async ctx => {
   try {
     const [email, password] = decodeBasicToken(
       ctx.request.headers.authorization
     )
-    const user = await prisma.User.findUnique({
-      where: { email },
+    const user = await model.findUnique({
+      where: { email, password },
     })
 
     if (!user) {
-      ctx.status = 404
-      ctx.body = 'Usuário não encontrado!'
-      return
-    }
-
-    const passwordEqual = await bcrypt.compare(password, user.password)
-
-    if (!passwordEqual) {
       ctx.status = 404
       ctx.body = 'Usuário não encontrado!'
       return
@@ -36,6 +27,7 @@ export const login = async ctx => {
 
     ctx.body = { user, token }
   } catch (error) {
+    console.log(error)
     ctx.status = 500
     ctx.body = 'Houve um errol'
   }
@@ -43,7 +35,7 @@ export const login = async ctx => {
 
 export const list = async ctx => {
   try {
-    const users = await prisma.User.findMany()
+    const users = await model.findMany()
     ctx.body = users
   } catch (error) {
     ctx.status = 500
@@ -61,7 +53,7 @@ export const create = async ctx => {
     )
     ctx.body = hashedPassword
 
-    const { user } = await prisma.User.create({
+    const { user } = await model.create({
       data: {
         name: ctx.request.body.name,
         email: ctx.request.body.email,
@@ -95,7 +87,7 @@ export const update = async ctx => {
     email: ctx.request.body.email,
   }
   try {
-    const user = await prisma.User.update({
+    const user = await model.update({
       where: { id: ctx.params.id },
       data,
     })
@@ -107,7 +99,7 @@ export const update = async ctx => {
 }
 export const remove = async ctx => {
   try {
-    await prisma.User.delete({
+    await model.remove({
       where: {
         id: ctx.params.id,
       },
