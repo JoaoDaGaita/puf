@@ -8,6 +8,6 @@
 
 # Checklist
 
--[] testado manualmente
--[] testes passando
--[] homologado
+- [ ] testado manualmente
+- [ ] testes passando
+- [ ] homologado
