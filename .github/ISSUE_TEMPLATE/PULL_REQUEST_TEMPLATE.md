@@ -1,13 +1,13 @@
-# o que essa pr implementa?
+## o que essa pr implementa?
 
-# imagens/videos
+## imagens/videos
 
 <details>
   <summary> Ver imagem/video</summary>
 </details>
 
-# checklist
+## Checklist
 
-[] testado manualmente
-[] testes passando
-[] homologado
+-[] testado manualmente
+-[] testes passando
+-[] homologado
